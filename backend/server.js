@@ -6,18 +6,27 @@ const cors = require("cors");
 const userRoute = require("./routes/userRoute"); // Corrected the route path
 const errorHandler = require("./middleWare/errorMiddleware");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 const app = express();
 
 // Middlewares
-app.use(cors()); // Enable CORS for cross-origin requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:3002", "https://pinvent-app.vercel.app"],
+    credentials: true,
+  })
+);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes middleware
 app.use("/api/users", userRoute);
+
 
 // Routes
 app.get("/", (req, res) => {

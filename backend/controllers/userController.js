@@ -6,6 +6,7 @@ const Token=require("../models/tokenModel");
 const crypto=require("crypto");
 const { Console } = require("console");
 const { off } = require("process");
+const sendEmail = require("../utils/sendEmail");
 
 // Generate token
 const generateToken = (id) => {
